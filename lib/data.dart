@@ -32,7 +32,7 @@ const features = [
   Feature(Icons.play_circle_rounded, 'Shorts',
       'Short coaching videos with one communication tip each.'),
   Feature(Icons.emoji_events_rounded, 'Voice Arena',
-      'Community ratings and a leaderboard with 2M+ voices.'),
+      'Compare your Voice Rating on a leaderboard.'),
 ];
 
 const tests = [
@@ -47,7 +47,6 @@ const tests = [
   VoiceTest(Icons.language_rounded, 'Spanish Accent Test', '13 Spanish accents.'),
 ];
 
-const press = ['Forbes', 'TIME', 'TechCrunch', 'Yahoo Finance', 'TechRadar', 'Tech in Asia', 'Unite.AI', 'Crunchbase News'];
 
 const steps = [
   ('Take the quiz', 'About two minutes of questions about your goals and obstacles.'),
@@ -55,11 +54,6 @@ const steps = [
   ('Hear the difference', 'Re-test after two weeks and compare your recordings.'),
 ];
 
-const testimonials = [
-  ('Farlan, 32', 'Aspen, Colorado', 'I sound like I belong in the room now. My filler words are almost gone.'),
-  ('Farid, 42', 'London', 'Introducing myself at networking events no longer makes me anxious.'),
-  ('Karen, 25', 'Ottawa', 'I negotiated my contract with a steady voice. Video calls feel easy.'),
-];
 
 const tongueTwisters = [
   'She sells seashells by the seashore.',

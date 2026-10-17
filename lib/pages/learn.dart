@@ -44,7 +44,7 @@ class ArticlePage extends StatelessWidget {
         appBar: AppBar(backgroundColor: VI.surface, title: Text(title)),
         body: Padding(
           padding: const EdgeInsets.all(24),
-          child: Text(_articles[title] ?? 'Read the full article on vocalimage.app.', style: const TextStyle(fontSize: 18, height: 1.5)),
+          child: Text(_articles[title] ?? 'Full article coming soon.', style: const TextStyle(fontSize: 18, height: 1.5)),
         ),
       );
 }

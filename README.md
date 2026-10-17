@@ -1,16 +1,15 @@
-# vocal_image
+# Orattor
 
-A new Flutter project.
+Voice and communication coaching app (Flutter: web, Android, iOS), modelled on the feature set of AI voice-coaching apps.
 
-## Getting Started
+## Features
+- Landing page, onboarding quiz, daily plan, streak/XP, saved results
+- On-device mic analysis (pitch, loudness, pace, pauses): Voice Test, Voice Rating, Speech Test, Age Test, Celebrity Test, Tongue Twister Test
+- Archetype quiz, pitch trainer, breathing exercise, scripted roleplay, Shorts, sample Voice Arena
+- Programs (speech recovery, masculinization, feminization, public speaking) and Learn articles
+- Accent Test is a placeholder estimate (no trained model)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Run
+    flutter pub get
+    flutter run -d chrome   # or: flutter run
+    flutter build web --release

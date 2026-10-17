@@ -1,6 +1,6 @@
 {
-    "name": "vocal_image",
-    "short_name": "vocal_image",
+    "name": "Orattor",
+    "short_name": "Orattor",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

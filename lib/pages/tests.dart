@@ -100,7 +100,7 @@ class _TestPageState extends State<TestPage> {
               if (isAccent)
                 const Padding(
                   padding: EdgeInsets.only(top: 8),
-                  child: Text('Demo estimate: real accent detection needs Vocal Image’s trained model.',
+                  child: Text('Demo estimate: real accent detection needs a trained model.',
                       style: TextStyle(color: VI.muted, fontSize: 12)),
                 ),
               if (widget.title == 'Age Test')

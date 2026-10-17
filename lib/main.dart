@@ -6,14 +6,14 @@ import 'theme.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AppState.I.load();
-  runApp(const VocalImageApp());
+  runApp(const OrattorApp());
 }
 
-class VocalImageApp extends StatelessWidget {
-  const VocalImageApp({super.key});
+class OrattorApp extends StatelessWidget {
+  const OrattorApp({super.key});
   @override
   Widget build(BuildContext context) => MaterialApp(
-        title: 'Vocal Image',
+        title: 'Orattor',
         debugShowCheckedModeBanner: false,
         theme: buildTheme(),
         home: const LandingPage(),

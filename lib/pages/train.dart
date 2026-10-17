@@ -279,7 +279,7 @@ class _RoleplayPageState extends State<RoleplayPage> {
           for (final k in _scenarios.keys) Card(child: ListTile(title: Text(k), trailing: const Icon(Icons.chevron_right), onTap: () => _pick(k))),
           const Padding(
             padding: EdgeInsets.all(8),
-            child: Text('Scripted practice conversations with scoring. Live AI characters need Vocal Image’s service.',
+            child: Text('Scripted practice conversations with scoring. Live AI characters need a backend AI service.',
                 style: TextStyle(color: VI.muted, fontSize: 12)),
           ),
         ]),

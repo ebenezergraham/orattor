@@ -28,13 +28,11 @@ class _LandingPageState extends State<LandingPage> {
       body: SingleChildScrollView(
         child: Column(children: [
           _Section(child: _hero(wide)),
-          _Section(alt: true, child: _press()),
           _Section(child: _accent(wide)),
           _Section(alt: true, child: _how(wide)),
           _Section(child: _features(wide)),
           _Section(alt: true, child: _testsGrid(wide)),
-          _Section(child: _reviews(wide)),
-          _Section(alt: true, child: _closing()),
+          _Section(child: _closing()),
           _footer(wide),
         ]),
       ),
@@ -65,26 +63,14 @@ class _LandingPageState extends State<LandingPage> {
         const SizedBox(height: 28),
         FilledButton(onPressed: _start, child: const Text('Get my training plan')),
         const SizedBox(height: 14),
-        const Text('Over 4 million people have used our free voice tests',
-            style: TextStyle(color: VI.muted)),
         const SizedBox(height: 24),
-      ]);
-
-  Widget _press() => Column(children: [
-        const Text('FEATURED IN', style: TextStyle(color: VI.muted, letterSpacing: 2, fontSize: 12)),
-        const SizedBox(height: 14),
-        Wrap(spacing: 32, runSpacing: 12, alignment: WrapAlignment.center, children: [
-          for (final p in press)
-            Text(p, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: VI.muted)),
-        ]),
       ]);
 
   Widget _accent(bool wide) {
     final stats = Wrap(spacing: 28, runSpacing: 14, children: const [
-      _Stat('8.4M+', 'tests taken'),
-      _Stat('4.8', 'rating'),
-      _Stat('96%', "can't fool the AI"),
-      _Stat('120+', 'accents detected'),
+      _Stat('8', 'accent styles'),
+      _Stat('15s', 'per test'),
+      _Stat('On-device', 'analysis'),
     ]);
     final text = Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       const Text('How strong is your accent when you speak English?',
@@ -149,34 +135,11 @@ class _LandingPageState extends State<LandingPage> {
         ]),
       ]);
 
-  Widget _reviews(bool wide) => Column(children: [
-        const Text('Loved by speakers worldwide',
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800)),
-        const SizedBox(height: 24),
-        _grid(wide ? 3 : 1, [
-          for (final t in testimonials)
-            _InfoCard(
-                leading: Row(mainAxisSize: MainAxisSize.min, children: [
-                  for (var i = 0; i < 5; i++) const Icon(Icons.star_rounded, color: VI.primary, size: 20)
-                ]),
-                title: '${t.$1} • ${t.$2}',
-                body: t.$3),
-        ]),
-      ]);
-
   Widget _closing() => Column(children: [
         const Text('Boost your voice, confidence, and career',
             style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800), textAlign: TextAlign.center),
         const SizedBox(height: 20),
         FilledButton(onPressed: _start, child: const Text('Try it for free')),
-        const SizedBox(height: 28),
-        const Wrap(spacing: 24, runSpacing: 8, alignment: WrapAlignment.center, children: [
-          Text('European AI Startup Program', style: TextStyle(color: VI.muted)),
-          Text('AWS AI Challenge', style: TextStyle(color: VI.muted)),
-          Text('TechChill 2022', style: TextStyle(color: VI.muted)),
-          Text('Latitude59 2022', style: TextStyle(color: VI.muted)),
-          Text('Startup Fair 2023', style: TextStyle(color: VI.muted)),
-        ]),
       ]);
 
   Widget _footer(bool wide) => Container(
@@ -187,9 +150,9 @@ class _LandingPageState extends State<LandingPage> {
             constraints: const BoxConstraints(maxWidth: 1100),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Wrap(spacing: 56, runSpacing: 24, children: const [
-                _FooterCol('Support', ['Help center', 'support@vocalimage.app']),
+                _FooterCol('Support', ['Help center']),
                 _FooterCol('Content', ['Tongue Twisters', 'Voice Training', 'Public Speaking', 'Articulate']),
-                _FooterCol('Company', ['Careers', 'Media Kit', 'Newsroom', 'For Sales']),
+                _FooterCol('Company', ['About', 'Careers']),
                 _FooterCol('Tests', ['Accent', 'Archetype', 'Tongue Twister', 'Voice Rating', 'Age']),
               ]),
               const SizedBox(height: 24),
@@ -198,9 +161,7 @@ class _LandingPageState extends State<LandingPage> {
                 Chip(avatar: Icon(Icons.android), label: Text('Google Play')),
               ]),
               const SizedBox(height: 16),
-              const Text('New York, NY • Tallinn, Estonia', style: TextStyle(color: VI.muted)),
-              const SizedBox(height: 8),
-              const Text('© 2021–2026 Vocal Image • Privacy policy • Terms & conditions',
+              const Text('© 2026 Orattor • Privacy policy • Terms & conditions',
                   style: TextStyle(color: VI.muted)),
             ]),
           ),
@@ -229,7 +190,7 @@ class _NavBar extends StatelessWidget implements PreferredSizeWidget {
         title: const Row(children: [
           Icon(Icons.graphic_eq_rounded, color: VI.primary),
           SizedBox(width: 8),
-          Text('Vocal Image', style: TextStyle(fontWeight: FontWeight.w800)),
+          Text('Orattor', style: TextStyle(fontWeight: FontWeight.w800)),
         ]),
         actions: [
           if (wide) ...[
@@ -268,7 +229,7 @@ class _MenuDrawer extends StatelessWidget {
   Widget build(BuildContext context) => Drawer(
         backgroundColor: VI.bg2,
         child: ListView(children: [
-          const DrawerHeader(child: Text('Vocal Image', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800))),
+          const DrawerHeader(child: Text('Orattor', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800))),
           const ListTile(title: Text('Blog')),
           for (final e in menu.entries)
             ExpansionTile(title: Text(e.key), children: [for (final i in e.value) ListTile(title: Text(i), dense: true)]),

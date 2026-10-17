@@ -74,7 +74,7 @@ Result tongueTwisterTest(VoiceMetrics m, int words) {
 
 const accents = ['General American', 'British (RP)', 'Australian', 'Irish', 'Indian English', 'Southern US', 'Canadian', 'South African'];
 
-/// Not a real accent classifier — Vocal Image's model is proprietary.
+/// Not a real accent classifier — a trained model is required.
 Result accentTest(VoiceMetrics m, String native) {
   final r = Random(m.meanPitch.round() * 31 + m.syllablesPerSec.round());
   final strength = _c(30 + r.nextInt(50) + (m.pauses > 2 ? 8 : 0));

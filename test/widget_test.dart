@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vocal_image/main.dart';
-import 'package:vocal_image/audio.dart';
+import 'package:orattor/main.dart';
+import 'package:orattor/audio.dart';
 import 'dart:math';
 
 void main() {
@@ -10,7 +10,7 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     t.view.physicalSize = const Size(1600, 900);
     t.view.devicePixelRatio = 1;
-    await t.pumpWidget(const VocalImageApp());
+    await t.pumpWidget(const OrattorApp());
     expect(find.text('Get my training plan'), findsOneWidget);
   });
 
