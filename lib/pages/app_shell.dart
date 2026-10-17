@@ -6,6 +6,7 @@ import 'learn.dart';
 import 'programs.dart';
 import 'tests.dart';
 import 'train.dart';
+import 'words.dart';
 
 class AppShell extends StatefulWidget {
   const AppShell({super.key});
@@ -90,6 +91,15 @@ class _AppShellState extends State<AppShell> {
             onTap: t.$3,
           ),
         ),
+      Card(
+        child: ListTile(
+          leading: const Icon(Icons.bookmark_added_rounded, color: VI.primary),
+          title: const Text('Word journal'),
+          subtitle: Text('${WordStore.I.words.length} words • practice what you have heard'),
+          trailing: const Icon(Icons.chevron_right),
+          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const WordsPage())).then((_) => setState(() {})),
+        ),
+      ),
     ]);
   }
 
