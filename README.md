@@ -1,19 +1,16 @@
-# Vocal Image (Flutter)
+# vocal_image
 
-Unofficial Flutter recreation of the vocalimage.app landing page and app experience, for web, Android and iOS.
+A new Flutter project.
 
-## Features
-- Landing page (nav, goal picker, press, stats, features, tests, reviews, footer) and onboarding quiz
-- Real on-device mic analysis (pitch via autocorrelation, loudness, pace, pauses): Voice Test, Voice Rating, Speech Test, Age Test, Celebrity Test, Tongue Twister Test
-- Archetype quiz, Accent Test (demo estimate only: the real model is proprietary)
-- Pitch (intonation) trainer, breathing exercise, scripted AI roleplay, Shorts, Voice Arena (sample leaderboard)
-- Programs (speech recovery, masculinization, feminization, public speaking), Learn/articles
-- Daily plan, streak, XP and result history (shared_preferences)
+## Getting Started
 
-## Run
-    flutter pub get
-    flutter run -d chrome     # web
-    flutter run               # device/emulator
-    flutter build web --release
+This project is a starting point for a Flutter application.
 
-Android needs the RECORD_AUDIO permission and iOS needs NSMicrophoneUsageDescription (see below). Not affiliated with Vocal Image.
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
