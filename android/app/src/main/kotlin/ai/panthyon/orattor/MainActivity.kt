@@ -1,4 +1,4 @@
-package net.vocalimage.vocal_image
+package ai.panthyon.orattor
 
 import io.flutter.embedding.android.FlutterActivity
 
