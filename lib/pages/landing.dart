@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import '../data.dart';
 import '../theme.dart';
@@ -211,13 +212,15 @@ class _NavBar extends StatelessWidget implements PreferredSizeWidget {
                 child: const Text('Log In')),
             const Padding(padding: EdgeInsets.symmetric(horizontal: 8), child: Center(child: Text('EN'))),
           ],
-          Padding(
-            padding: const EdgeInsets.only(right: 16, left: 8),
-            child: FilledButton(
-                style: FilledButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12)),
-                onPressed: onDownload,
-                child: const Text('Download')),
-          ),
+          // The native app is already installed, so only promote downloading on the web.
+          if (kIsWeb)
+            Padding(
+              padding: const EdgeInsets.only(right: 16, left: 8),
+              child: FilledButton(
+                  style: FilledButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12)),
+                  onPressed: onDownload,
+                  child: const Text('Download')),
+            ),
         ],
       );
 }

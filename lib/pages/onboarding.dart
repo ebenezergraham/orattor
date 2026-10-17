@@ -4,10 +4,11 @@ import '../theme.dart';
 import '../state.dart';
 import 'app_shell.dart';
 
+// (question, options, multi-select)
 const _quiz = [
-  ('What do you want to improve most?', ['Confidence', 'Clarity', 'Presence', 'Accent']),
-  ('What gets in your way?', ['Nerves', 'Filler words ("um")', 'Speaking too fast', 'Monotone delivery']),
-  ('How much can you practice daily?', ['3 minutes', '5 minutes', '10 minutes']),
+  ('What do you want to improve? (choose all that apply)', ['Confidence', 'Clarity', 'Presence', 'Accent'], true),
+  ('What gets in your way? (choose all that apply)', ['Nerves', 'Filler words ("um")', 'Speaking too fast', 'Monotone delivery'], true),
+  ('How much can you practice daily?', ['3 minutes', '5 minutes', '10 minutes'], false),
 ];
 
 class OnboardingPage extends StatefulWidget {
@@ -20,6 +21,7 @@ class OnboardingPage extends StatefulWidget {
 class _OnboardingPageState extends State<OnboardingPage> {
   int step = 0;
   final answers = <int, String>{};
+  final picked = <String>{};
   final nameCtl = TextEditingController();
 
   @override
@@ -55,16 +57,38 @@ class _OnboardingPageState extends State<OnboardingPage> {
         Padding(
           padding: const EdgeInsets.only(bottom: 10),
           child: Card(
-            child: ListTile(
-              title: Text(o),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () => setState(() {
-                answers[step] = o;
-                step++;
-              }),
-            ),
+            child: q.$3
+                ? CheckboxListTile(
+                    title: Text(o),
+                    value: picked.contains(o),
+                    activeColor: VI.primary,
+                    checkColor: const Color(0xFF171723),
+                    onChanged: (v) => setState(() => v == true ? picked.add(o) : picked.remove(o)),
+                  )
+                : ListTile(
+                    title: Text(o),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () => setState(() {
+                      answers[step] = o;
+                      step++;
+                    }),
+                  ),
           ),
         ),
+      if (q.$3) ...[
+        const SizedBox(height: 10),
+        FilledButton(
+          onPressed: picked.isEmpty
+              ? null
+              : () => setState(() {
+                    // keep the option order from the quiz, not tap order
+                    answers[step] = [for (final o in q.$2) if (picked.contains(o)) o].join(', ');
+                    picked.clear();
+                    step++;
+                  }),
+          child: const Text('Continue'),
+        ),
+      ],
     ]);
   }
 
