@@ -1,0 +1,17 @@
+default_platform(:android)
+
+platform :android do
+  desc "Upload the release App Bundle (already built by `flutter build appbundle`) to the Play Console internal testing track"
+  lane :internal do
+    upload_to_play_store(
+      track: "internal",
+      aab: "../build/app/outputs/bundle/release/app-release.aab",
+      json_key: ENV.fetch("PLAY_STORE_JSON_KEY_PATH"),
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      # First-ever upload for a package must happen once through the Play
+      # Console web UI before the API can push to it.
+    )
+  end
+end
