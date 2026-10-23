@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import '../curriculum.dart';
 import '../state.dart';
 import '../theme.dart';
+import 'lesson.dart';
 
 class Program {
   final String name, blurb;
@@ -16,31 +18,109 @@ const programs = [
     ('Single syllables', 'Slowly repeat "pa, ta, ka" 10 times, focusing on crisp starts.'),
     ('Short phrases', 'Say "Good morning" and "How are you" with a pause between words.'),
   ]),
-  Program('Masculinization', 'Build a deeper, grounded voice.', Icons.arrow_downward_rounded, [
-    ('Find your low register', 'Hum at your lowest comfortable pitch; feel chest vibration.'),
-    ('Resonance in the chest', 'Hand on chest; say "mmm-hmm" and feel it buzz.'),
-    ('Downward inflection', 'Practice ending sentences on a falling pitch.'),
-    ('Daily read-aloud', 'Read a paragraph keeping pitch near your new base note.'),
-  ]),
   Program('Feminization', 'Develop a brighter, lighter voice.', Icons.arrow_upward_rounded, [
     ('Pitch glides', 'Slide from low to high on "weee" without strain.'),
     ('Forward resonance', 'Hum "mmm" and feel buzz in the nose and lips.'),
     ('Lighter intonation', 'Add gentle rising and falling melodies to sentences.'),
     ('Daily read-aloud', 'Read a paragraph keeping a comfortable raised pitch.'),
   ]),
-  Program('Public speaking', 'Present with presence.', Icons.campaign_rounded, [
-    ('Open strong', 'Start with a story or bold question, not "so, um".'),
-    ('Pause power', 'Pause for 2 seconds after each key point.'),
-    ('Eye contact and pace', 'Look at one person per sentence; keep ~150 wpm.'),
-  ]),
 ];
 
-class ProgramsPage extends StatelessWidget {
+class ProgramsPage extends StatefulWidget {
   const ProgramsPage({super.key});
+  @override
+  State<ProgramsPage> createState() => _ProgramsPageState();
+}
+
+class _ProgramsPageState extends State<ProgramsPage> {
+  Future<void> _open(Widget page) => Navigator.push(context, MaterialPageRoute(builder: (_) => page)).then((_) => setState(() {}));
+
+  Future<void> _whereToStart() async {
+    final picked = <Concern>{};
+    final result = await showDialog<Set<Concern>>(
+      context: context,
+      builder: (_) => StatefulBuilder(
+        builder: (ctx, set) => AlertDialog(
+          backgroundColor: VI.bg2,
+          title: const Text('What sounds like you?'),
+          content: SingleChildScrollView(
+            child: Column(mainAxisSize: MainAxisSize.min, children: [
+              for (final c in Concern.values)
+                CheckboxListTile(
+                  contentPadding: EdgeInsets.zero,
+                  activeColor: VI.primary,
+                  checkColor: Colors.black,
+                  title: Text(concernLabels[c]!),
+                  value: picked.contains(c),
+                  onChanged: (v) => set(() => v == true ? picked.add(c) : picked.remove(c)),
+                ),
+            ]),
+          ),
+          actions: [
+            TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
+            FilledButton(onPressed: picked.isEmpty ? null : () => Navigator.pop(ctx, picked), child: const Text('Show my path')),
+          ],
+        ),
+      ),
+    );
+    if (result == null || !mounted) return;
+    final path = recommendedTracks(result);
+    await showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: VI.bg2,
+      builder: (ctx) => SafeArea(
+        child: ListView(shrinkWrap: true, padding: const EdgeInsets.all(20), children: [
+          const Text('Your path, in order', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
+          const SizedBox(height: 4),
+          const Text('Start with Foundations, then work down the list.', style: TextStyle(color: VI.muted)),
+          const SizedBox(height: 8),
+          for (var i = 0; i < path.length; i++)
+            ListTile(
+              leading: CircleAvatar(radius: 14, backgroundColor: VI.primary, foregroundColor: Colors.black, child: Text('${i + 1}')),
+              title: Text(path[i].name),
+              subtitle: Text('${path[i].lessons.length} lessons'),
+              onTap: () {
+                Navigator.pop(ctx);
+                _open(TrackPage(path[i]));
+              },
+            ),
+        ]),
+      ),
+    );
+  }
+
+  int _done(Track t) => t.lessons.where((l) => AppState.I.programLessons.contains(t.key(l))).length;
+
   @override
   Widget build(BuildContext context) => ListView(padding: const EdgeInsets.all(20), children: [
         const Text('Programs', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800)),
         const SizedBox(height: 12),
+        Card(
+          color: VI.primary.withValues(alpha: .12),
+          child: ListTile(
+            leading: const Icon(Icons.explore_rounded, color: VI.primary),
+            title: const Text('Not sure where to start?'),
+            subtitle: const Text('Tell us what you notice about your voice and get an ordered path.'),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: _whereToStart,
+          ),
+        ),
+        const SizedBox(height: 8),
+        const Text('Voice training tracks', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800)),
+        const SizedBox(height: 4),
+        for (final t in tracks)
+          Card(
+            child: ListTile(
+              leading: Icon(t.icon, color: VI.primary),
+              title: Text(t.name),
+              subtitle: Text('${t.blurb}\n${_done(t)}/${t.lessons.length} lessons done'),
+              isThreeLine: true,
+              onTap: () => _open(TrackPage(t)),
+            ),
+          ),
+        const SizedBox(height: 12),
+        const Text('Other programs', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800)),
+        const SizedBox(height: 4),
         for (final p in programs)
           Card(
             child: ListTile(
@@ -48,7 +128,7 @@ class ProgramsPage extends StatelessWidget {
               title: Text(p.name),
               subtitle: Text('${p.blurb}\n${p.lessons.where((l) => AppState.I.programLessons.contains('${p.name}/${l.$1}')).length}/${p.lessons.length} lessons done'),
               isThreeLine: true,
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ProgramDetail(p))),
+              onTap: () => _open(ProgramDetail(p)),
             ),
           ),
       ]);
